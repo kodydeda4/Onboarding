@@ -15,7 +15,7 @@ import SwiftUI
 struct AppReducer: ReducerProtocol {
   struct State: Equatable {
     var isLoadingInitialState = true
-    var destination: Destination
+    var destination = Destination.onboarding(.init())
     
     enum Destination: Equatable {
       case onboarding(Onboarding.State)
@@ -130,7 +130,7 @@ struct AppView: View {
 struct AppView_Previews: PreviewProvider {
   static var previews: some View {
     AppView(store: Store(
-      initialState: AppReducer.State(destination: .onboarding(.init())),
+      initialState: AppReducer.State(),
       reducer: AppReducer()
     ))
   }

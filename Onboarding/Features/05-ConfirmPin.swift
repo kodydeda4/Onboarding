@@ -1,29 +1,32 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct ConfirmNewPin: Reducer {
+struct ConfirmPin: Reducer {
   struct State: Codable, Equatable, Hashable {
-    //...
+    let pin: String
+    @BindingState var confirmPin = String()
+    
+    var isNextButtonDisabled: Bool {
+      pin != confirmPin
+    }
   }
   
-  enum Action: Equatable {
+  enum Action: BindableAction, Equatable {
+    case binding(BindingAction<State>)
     case doneButtonTapped
-    case dismissButtonTapped
   }
-  
-  @Dependency(\.dismiss) var dismiss
   
   var body: some Reducer<State, Action> {
+    BindingReducer()
     Reduce { state, action in
       switch action {
+        
+      case .binding:
+        return .none
         
       case .doneButtonTapped:
         return .none
         
-      case .dismissButtonTapped:
-        return .fireAndForget {
-          await self.dismiss()
-        }
       }
     }
   }
@@ -31,22 +34,23 @@ struct ConfirmNewPin: Reducer {
 
 // MARK: - SwiftUI
 
-struct ConfirmNewPinView: View {
-  let store: StoreOf<ConfirmNewPin>
+struct ConfirmPinView: View {
+  let store: StoreOf<ConfirmPin>
   
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       Form {
-        Button("Dismiss") {
-          viewStore.send(.dismissButtonTapped)
+        Section("Confirm Pin - \(viewStore.pin)") {
+          TextField("Pin", text: viewStore.binding(\.$confirmPin))
         }
       }
-      .navigationTitle("Confirm New Pin")
+      .navigationTitle("Confirm Pin")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button("Done") {
             viewStore.send(.doneButtonTapped)
           }
+          .disabled(viewStore.isNextButtonDisabled)
         }
       }
     }
@@ -58,9 +62,11 @@ struct ConfirmNewPinView: View {
 struct ConfirmNewPinView_Previews: PreviewProvider {
   static var previews: some View {
     NavigationStack {
-      ConfirmNewPinView(store: Store(
-        initialState: ConfirmNewPin.State(),
-        reducer: ConfirmNewPin()
+      ConfirmPinView(store: Store(
+        initialState: ConfirmPin.State(
+          pin: "1234"
+        ),
+        reducer: ConfirmPin()
       ))
     }
   }

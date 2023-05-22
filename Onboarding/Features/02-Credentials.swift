@@ -3,23 +3,28 @@ import SwiftUI
 
 struct Credentials: Reducer {
   struct State: Codable, Equatable, Hashable {
-    //...
+    @BindingState var email = String()
+    @BindingState var password = String()
+    
+    var isNextButtonDisabled: Bool {
+      email.isEmpty || password.isEmpty
+    }
   }
   
-  enum Action: Equatable {
-    case dismissButtonTapped
+  enum Action: BindableAction, Equatable {
+    case binding(BindingAction<State>)
   }
   
   @Dependency(\.dismiss) var dismiss
   
   var body: some Reducer<State, Action> {
+    BindingReducer()
     Reduce { state, action in
       switch action {
+      
+      case .binding:
+        return .none
         
-      case .dismissButtonTapped:
-        return .fireAndForget {
-          await self.dismiss()
-        }
       }
     }
   }
@@ -33,8 +38,9 @@ struct CredentialsView: View {
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       Form {
-        Button("Dismiss") {
-          viewStore.send(.dismissButtonTapped)
+        Section {
+          TextField("Email", text: viewStore.binding(\.$email))
+          SecureField("Password", text: viewStore.binding(\.$password))
         }
       }
       .navigationTitle("Credentials")
@@ -44,6 +50,7 @@ struct CredentialsView: View {
             "Next",
             state: AppReducer.Path.State.personalInfo()
           )
+          .disabled(viewStore.isNextButtonDisabled)
         }
       }
     }

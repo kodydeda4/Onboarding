@@ -3,23 +3,25 @@ import SwiftUI
 
 struct NewPin: Reducer {
   struct State: Codable, Equatable, Hashable {
-    //...
+    @BindingState var pin = String()
+    
+    var isNextButtonDisabled: Bool {
+      pin.isEmpty
+    }
   }
   
-  enum Action: Equatable {
-    case dismissButtonTapped
+  enum Action: BindableAction, Equatable {
+    case binding(BindingAction<State>)
   }
-  
-  @Dependency(\.dismiss) var dismiss
   
   var body: some Reducer<State, Action> {
+    BindingReducer()
     Reduce { state, action in
       switch action {
+      
+      case .binding:
+        return .none
         
-      case .dismissButtonTapped:
-        return .fireAndForget {
-          await self.dismiss()
-        }
       }
     }
   }
@@ -33,8 +35,8 @@ struct NewPinView: View {
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       Form {
-        Button("Dismiss") {
-          viewStore.send(.dismissButtonTapped)
+        Section {
+          TextField("Pin", text: viewStore.binding(\.$pin))
         }
       }
       .navigationTitle("New Pin")
@@ -42,8 +44,9 @@ struct NewPinView: View {
         ToolbarItem(placement: .navigationBarTrailing) {
           NavigationLink(
             "Next",
-            state: AppReducer.Path.State.confirmNewPin()
+            state: AppReducer.Path.State.confirmPin(.init(pin: viewStore.pin))
           )
+          .disabled(viewStore.isNextButtonDisabled)
         }
       }
     }

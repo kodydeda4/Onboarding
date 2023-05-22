@@ -18,7 +18,7 @@
 		3399BF612A1B93A0000ADDBE /* 01-TermsOfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF602A1B93A0000ADDBE /* 01-TermsOfService.swift */; };
 		3399BF632A1B9482000ADDBE /* 03-PersonalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF622A1B9482000ADDBE /* 03-PersonalInfo.swift */; };
 		3399BF652A1B94AC000ADDBE /* 04-NewPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF642A1B94AC000ADDBE /* 04-NewPin.swift */; };
-		3399BF692A1B963B000ADDBE /* 05-ConfirmNewPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF682A1B963B000ADDBE /* 05-ConfirmNewPin.swift */; };
+		3399BF692A1B963B000ADDBE /* 05-ConfirmPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF682A1B963B000ADDBE /* 05-ConfirmPin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,7 @@
 		3399BF602A1B93A0000ADDBE /* 01-TermsOfService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "01-TermsOfService.swift"; sourceTree = "<group>"; };
 		3399BF622A1B9482000ADDBE /* 03-PersonalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "03-PersonalInfo.swift"; sourceTree = "<group>"; };
 		3399BF642A1B94AC000ADDBE /* 04-NewPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "04-NewPin.swift"; sourceTree = "<group>"; };
-		3399BF682A1B963B000ADDBE /* 05-ConfirmNewPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "05-ConfirmNewPin.swift"; sourceTree = "<group>"; };
+		3399BF682A1B963B000ADDBE /* 05-ConfirmPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "05-ConfirmPin.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +119,7 @@
 				3399BF5C2A1B9382000ADDBE /* 02-Credentials.swift */,
 				3399BF622A1B9482000ADDBE /* 03-PersonalInfo.swift */,
 				3399BF642A1B94AC000ADDBE /* 04-NewPin.swift */,
-				3399BF682A1B963B000ADDBE /* 05-ConfirmNewPin.swift */,
+				3399BF682A1B963B000ADDBE /* 05-ConfirmPin.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -250,7 +250,7 @@
 				3399BF612A1B93A0000ADDBE /* 01-TermsOfService.swift in Sources */,
 				3399BF5F2A1B939B000ADDBE /* 00-Welcome.swift in Sources */,
 				3399BF5D2A1B9382000ADDBE /* 02-Credentials.swift in Sources */,
-				3399BF692A1B963B000ADDBE /* 05-ConfirmNewPin.swift in Sources */,
+				3399BF692A1B963B000ADDBE /* 05-ConfirmPin.swift in Sources */,
 				3399BF2F2A1B8C7E000ADDBE /* _AppReducer.swift in Sources */,
 				3399BF652A1B94AC000ADDBE /* 04-NewPin.swift in Sources */,
 				3399BF2D2A1B8C7E000ADDBE /* Main.swift in Sources */,

@@ -3,62 +3,56 @@ import SwiftUI
 
 struct TermsOfService: Reducer {
   struct State: Codable, Equatable, Hashable {
-    //...
+    @BindingState var isAccepted = false
+    var isNextButtonDisabled: Bool { !isAccepted }
   }
   
-  enum Action: Equatable {
-    case dismissButtonTapped
+  enum Action: BindableAction, Equatable {
+    case binding(BindingAction<State>)
   }
-  
-  @Dependency(\.dismiss) var dismiss
-  
+    
   var body: some Reducer<State, Action> {
-    Reduce { state, action in
-      switch action {
-        
-      case .dismissButtonTapped:
-        return .fireAndForget {
-          await self.dismiss()
+    BindingReducer()
+  }
+}
+
+// MARK: - SwiftUI
+
+struct TermsOfServiceView: View {
+  let store: StoreOf<TermsOfService>
+  
+  var body: some View {
+    WithViewStore(self.store, observe: { $0 }) { viewStore in
+      Form {
+        Section("""
+Terms of service are the legal agreements between a service provider and a person who wants to use that service. The person must agree to abide by the terms of service in order to use the offered service. Terms of service can also be merely a disclaimer, especially regarding the use of websites. Vague language and lengthy sentences used in the terms of use have brought concerns on customer privacy and raised public awareness in many ways.
+""") {
+          Toggle("I accept", isOn: viewStore.binding(\.$isAccepted))
+        }
+      }
+      .navigationTitle("Terms Of Service")
+      .toolbar {
+        ToolbarItem(placement: .navigationBarTrailing) {
+          NavigationLink(
+            "Next",
+            state: AppReducer.Path.State.credentials()
+          )
+          .disabled(viewStore.isNextButtonDisabled)
         }
       }
     }
   }
 }
-  
-  // MARK: - SwiftUI
-  
-  struct TermsOfServiceView: View {
-    let store: StoreOf<TermsOfService>
-    
-    var body: some View {
-      WithViewStore(self.store, observe: { $0 }) { viewStore in
-        Form {
-          Button("Dismiss") {
-            viewStore.send(.dismissButtonTapped)
-          }
-        }
-        .navigationTitle("Terms Of Service")
-        .toolbar {
-          ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationLink(
-              "Next",
-              state: AppReducer.Path.State.credentials()
-            )
-          }
-        }
-      }
+
+// MARK: - SwiftUI Previews
+
+struct TermsOfServiceView_Previews: PreviewProvider {
+  static var previews: some View {
+    NavigationStack {
+      TermsOfServiceView(store: Store(
+        initialState: TermsOfService.State(),
+        reducer: TermsOfService()
+      ))
     }
   }
-  
-  // MARK: - SwiftUI Previews
-  
-  struct TermsOfServiceView_Previews: PreviewProvider {
-    static var previews: some View {
-      NavigationStack {
-        TermsOfServiceView(store: Store(
-          initialState: TermsOfService.State(),
-          reducer: TermsOfService()
-        ))
-      }
-    }
-  }
+}

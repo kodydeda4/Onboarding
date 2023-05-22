@@ -30,7 +30,7 @@ struct AppReducer: Reducer {
       case credentials(Credentials.State = .init())
       case personalInfo(PersonalInfo.State = .init())
       case newPin(NewPin.State = .init())
-      case confirmNewPin(ConfirmNewPin.State = .init())
+      case confirmPin(ConfirmPin.State)
     }
     
     enum Action: Equatable {
@@ -39,7 +39,7 @@ struct AppReducer: Reducer {
       case credentials(Credentials.Action)
       case personalInfo(PersonalInfo.Action)
       case newPin(NewPin.Action)
-      case confirmNewPin(ConfirmNewPin.Action)
+      case confirmPin(ConfirmPin.Action)
     }
     
     var body: some Reducer<State, Action> {
@@ -59,8 +59,8 @@ struct AppReducer: Reducer {
       Scope(state: /State.newPin, action: /Action.newPin) {
         NewPin()
       }
-      Scope(state: /State.confirmNewPin, action: /Action.confirmNewPin) {
-        ConfirmNewPin()
+      Scope(state: /State.confirmPin, action: /Action.confirmPin) {
+        ConfirmPin()
       }
     }
   }
@@ -75,33 +75,11 @@ struct AppView: View {
     NavigationStackStore(
       self.store.scope(state: \.path, action: AppReducer.Action.path)
     ) {
-      Form {
-        Section {
-          NavigationLink(
-            "Welcome",
-            state: AppReducer.Path.State.welcome()
-          )
-          NavigationLink(
-            "Terms Of Service",
-            state: AppReducer.Path.State.termsOfService()
-          )
-          NavigationLink(
-            "Credentials",
-            state: AppReducer.Path.State.credentials()
-          )
-          NavigationLink(
-            "Personal Info",
-            state: AppReducer.Path.State.personalInfo()
-          )
-          NavigationLink(
-            "New Pin",
-            state: AppReducer.Path.State.newPin()
-          )
-          NavigationLink(
-            "Confirm New Pin",
-            state: AppReducer.Path.State.confirmNewPin()
-          )
-        }
+      VStack {
+        Text("No Content")
+          .font(.title)
+          .bold()
+          .foregroundStyle(.secondary)
       }
       .navigationTitle("Onboarding")
     } destination: {
@@ -136,11 +114,11 @@ struct AppView: View {
           action: AppReducer.Path.Action.newPin,
           then: NewPinView.init(store:)
         )
-      case .confirmNewPin:
+      case .confirmPin:
         CaseLet(
-          state: /AppReducer.Path.State.confirmNewPin,
-          action: AppReducer.Path.Action.confirmNewPin,
-          then: ConfirmNewPinView.init(store:)
+          state: /AppReducer.Path.State.confirmPin,
+          action: AppReducer.Path.Action.confirmPin,
+          then: ConfirmPinView.init(store:)
         )
       }
     }

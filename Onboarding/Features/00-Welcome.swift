@@ -33,9 +33,7 @@ struct WelcomeView: View {
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       Form {
-        Button("Dismiss") {
-          viewStore.send(.dismissButtonTapped)
-        }
+        Text("👋 Hello World")
       }
       .navigationTitle("Welcome")
       .toolbar {

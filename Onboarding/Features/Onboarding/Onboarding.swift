@@ -8,12 +8,12 @@ struct Onboarding: Reducer {
     var path = StackState<Path.State>()
     var user = UserDefaults.Dependency.User(
       id: .init(),
-      email: String(),
-      password: String(),
-      firstName: String(),
-      lastName: String(),
-      telephoneNumber: String(),
-      pin: String()
+      email: .init(),
+      password: .init(),
+      firstName: .init(),
+      lastName: .init(),
+      telephoneNumber: .init(),
+      pin: .init()
     )
   }
   
@@ -114,8 +114,9 @@ struct OnboardingView: View {
   let store: StoreOf<Onboarding>
   
   var body: some View {
-    NavigationStackStore(
-      self.store.scope(state: \.path, action: Onboarding.Action.path)
+    NavigationStackStore(self.store.scope(
+      state: \.path,
+      action: Onboarding.Action.path)
     ) {
       Form {
         Text("👋 Hello World")

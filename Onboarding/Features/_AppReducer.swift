@@ -1,11 +1,6 @@
 import ComposableArchitecture
 import SwiftUI
 
-///
-/// Todo:
-/// -[ ] Add `@FocusState` to forms
-/// -[ ] Write tests
-
 struct AppReducer: ReducerProtocol {
   enum State: Equatable {
     case onboarding(Onboarding.State)

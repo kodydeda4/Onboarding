@@ -27,9 +27,8 @@ struct MainReducer: Reducer {
         return .none
         
       case .alert(.presented(.confirmSignoutButtonTapped)):
-        return .run { _ in
-          self.userDefaults.set(Optional<Data>(nil), forKey: "user")
-        }
+        self.userDefaults.set(Optional<Data>(nil), forKey: "user")
+        return .none
         
       case .alert:
         return .none

@@ -18,11 +18,8 @@ struct Onboarding: Reducer {
   
   enum Action: Equatable {
     case path(StackAction<Path.State, Path.Action>)
-    case saveUserResponse(TaskResult<String>)
-    case didComplete
   }
   
-//  @Dependency(\.auth) var auth
   @Dependency(\.userDefaults) var userDefaults
 
   var body: some Reducer<State, Action> {
@@ -59,22 +56,12 @@ struct Onboarding: Reducer {
           return .none
 
         case .element(id: _, action: .confirmPin(.doneButtonTapped)):
-          return .task { [user = state.user] in
-            await .saveUserResponse(TaskResult {
-              try self.userDefaults.set(JSONEncoder().encode(user), forKey: "user")
-              return "Success"
-            })
-          }
+          try? self.userDefaults.set(JSONEncoder().encode(state.user), forKey: "user")
+          return .none
 
         default:
           return .none
         }
-        
-      case .saveUserResponse(.success):
-        return .send(.didComplete)
-
-      case .saveUserResponse, .didComplete:
-        return .none
       }
     }
     .forEach(\.path, action: /Action.path) {

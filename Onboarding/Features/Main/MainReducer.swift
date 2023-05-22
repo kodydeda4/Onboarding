@@ -9,8 +9,6 @@ struct MainReducer: Reducer {
   
   enum Action: Equatable {
     case signoutButtonTapped
-    case signoutResponse(TaskResult<String>)
-    case didSignout
     case alert(PresentationAction<Alert>)
     
     enum Alert: Equatable {
@@ -28,24 +26,12 @@ struct MainReducer: Reducer {
         state.alert = .signout
         return .none
         
-      case .signoutResponse(.success):
-        return .send(.didSignout)
-        
-      case .signoutResponse(.failure):
-        return .none
-        
       case .alert(.presented(.confirmSignoutButtonTapped)):
-        return .task {
-          await .signoutResponse(TaskResult {
-            self.userDefaults.set(Optional<Data>(nil), forKey: "user")
-            return "Success"
-          })
+        return .run { _ in 
+          self.userDefaults.set(Optional<Data>(nil), forKey: "user")
         }
         
       case .alert:
-        return .none
-        
-      case .didSignout:
         return .none
       }
     }

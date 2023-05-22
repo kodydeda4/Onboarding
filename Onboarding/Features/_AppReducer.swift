@@ -9,7 +9,7 @@ import SwiftUI
 /// -[X] Persist data
 /// -[ ] Add `@FocusState` to forms
 /// -[ ] Add bonus points
-/// -[ ] Use AsyncStream for value?
+/// -[X] Use AsyncStream for value
 /// -[ ] Write tests
 ///
 
@@ -25,7 +25,7 @@ struct AppReducer: ReducerProtocol {
   
   enum Action: Equatable {
     case task
-    case taskResponse(TaskResult<State.Destination>)
+    case setDestination(State.Destination)
     case destination(Destination)
     
     enum Destination: Equatable {
@@ -53,33 +53,22 @@ struct AppReducer: ReducerProtocol {
     Reduce { state, action in
       switch action {
       case .task:
-        return .task {
-          await .taskResponse(TaskResult {
-            guard
-              let userData = self.userDefaults.data(forKey: "user"),
-              let user = try? JSONDecoder().decode(UserDefaults.Dependency.User.self, from: userData)
-            else { return .onboarding(Onboarding.State()) }
-            return .main(MainReducer.State(user: user))
-          })
+        return .run { send in
+          for await userData in self.userDefaults.dataValues(forKey: "user") {
+            if let userData = userData, let user = try? JSONDecoder().decode(UserDefaults.Dependency.User.self, from: userData) {
+              await send(.setDestination(.main(MainReducer.State(user: user))))
+            } else {
+              await send(.setDestination(.onboarding(Onboarding.State())))
+            }
+          }
         }
         
-      case let .taskResponse(.success(value)):
+      case let .setDestination(value):
         state.destination = value
         return .none
         
-        
-      case let .destination(action):
-        switch action {
-        case .onboarding(.didComplete),
-            .main(.didSignout):
-          return .send(.task)
-        default:
-          return .none
-        }
-        
-      case .taskResponse:
+      case .destination:
         return .none
-
       }
     }
   }

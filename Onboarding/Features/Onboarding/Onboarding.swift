@@ -30,11 +30,11 @@ struct Onboarding: Reducer {
       case let .path(action):
         switch action {
                     
-        case .element(id: _, action: .termsOfService(.nextButtonTapped)):
+        case .element(_, .termsOfService(.nextButtonTapped)):
           state.path.append(.credentials())
           return .none
           
-        case let .element(id: id, action: .credentials(.didComplete)):
+        case let .element(id, .credentials(.didComplete)):
           guard case let .some(.credentials(childState)) = state.path[id: id]
           else { return .none }
           state.user.email = childState.email
@@ -42,7 +42,7 @@ struct Onboarding: Reducer {
           state.path.append(.personalInfo())
           return .none
           
-        case let .element(id: id, action: .personalInfo(.nextButtonTapped)):
+        case let .element(id, .personalInfo(.nextButtonTapped)):
           guard case let .some(.personalInfo(childState)) = state.path[id: id]
           else { return .none }
           state.user.firstName = childState.firstName
@@ -51,13 +51,13 @@ struct Onboarding: Reducer {
           state.path.append(.newPin())
           return .none
 
-        case let .element(id: id, action: .newPin(.nextButtonTapped)):
+        case let .element(id, .newPin(.nextButtonTapped)):
           guard case let .some(.newPin(childState)) = state.path[id: id]
           else { return .none }
           state.path.append(.confirmPin(.init(pin: childState.pin)))
           return .none
 
-        case .element(id: _, action: .confirmPin(.doneButtonTapped)):
+        case .element(_, .confirmPin(.doneButtonTapped)):
           try? self.userDefaults.set(JSONEncoder().encode(state.user), forKey: "user")
           return .none
 

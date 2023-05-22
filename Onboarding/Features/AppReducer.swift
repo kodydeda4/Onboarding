@@ -3,7 +3,7 @@ import SwiftUI
 
 struct AppReducer: Reducer {
   enum State: Equatable {
-    case onboarding(Onboarding.State)
+    case onboarding(Onboarding.State = .init())
     case main(MainReducer.State)
   }
   
@@ -24,9 +24,9 @@ struct AppReducer: Reducer {
         return .run { send in
           for await userData in self.userDefaults.dataValues(forKey: "user") {
             if let user = userData.flatMap({ try? JSONDecoder().decode(UserDefaults.Dependency.User.self, from: $0) }) {
-              await send(.setState(.main(MainReducer.State(user: user))))
+              await send(.setState(.main(.init(user: user))))
             } else {
-              await send(.setState(.onboarding(Onboarding.State())))
+              await send(.setState(.onboarding()))
             }
           }
         }
@@ -75,7 +75,7 @@ struct AppView: View {
 struct AppView_Previews: PreviewProvider {
   static var previews: some View {
     AppView(store: Store(
-      initialState: AppReducer.State.onboarding(Onboarding.State()),
+      initialState: .onboarding(),
       reducer: AppReducer()
     ))
   }

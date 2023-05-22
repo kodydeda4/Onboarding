@@ -7,7 +7,7 @@ struct OnboardingApp: App {
     WindowGroup {
       if !_XCTIsTesting {
         AppView(store: Store(
-          initialState: AppReducer.State.onboarding(.init()),
+          initialState: .onboarding(),
           reducer: AppReducer()
         ))
       }

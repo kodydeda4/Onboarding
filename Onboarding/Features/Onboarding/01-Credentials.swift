@@ -15,9 +15,7 @@ struct Credentials: Reducer {
     case binding(BindingAction<State>)
     case nextButtonTapped
   }
-  
-  @Dependency(\.dismiss) var dismiss
-  
+    
   var body: some Reducer<State, Action> {
     BindingReducer()
   }

@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3399BF2D2A1B8C7E000ADDBE /* OnboardingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF2C2A1B8C7E000ADDBE /* OnboardingApp.swift */; };
-		3399BF2F2A1B8C7E000ADDBE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF2E2A1B8C7E000ADDBE /* ContentView.swift */; };
+		3399BF2D2A1B8C7E000ADDBE /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF2C2A1B8C7E000ADDBE /* Main.swift */; };
+		3399BF2F2A1B8C7E000ADDBE /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF2E2A1B8C7E000ADDBE /* AppReducer.swift */; };
 		3399BF312A1B8C7F000ADDBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3399BF302A1B8C7F000ADDBE /* Assets.xcassets */; };
 		3399BF342A1B8C7F000ADDBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3399BF332A1B8C7F000ADDBE /* Preview Assets.xcassets */; };
-		3399BF3E2A1B8C80000ADDBE /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF3D2A1B8C80000ADDBE /* OnboardingTests.swift */; };
-		3399BF482A1B8C80000ADDBE /* OnboardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF472A1B8C80000ADDBE /* OnboardingUITests.swift */; };
-		3399BF4A2A1B8C80000ADDBE /* OnboardingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF492A1B8C80000ADDBE /* OnboardingUITestsLaunchTests.swift */; };
+		3399BF3E2A1B8C80000ADDBE /* AppReducerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF3D2A1B8C80000ADDBE /* AppReducerTests.swift */; };
+		3399BF5B2A1B8D6F000ADDBE /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 3399BF5A2A1B8D6F000ADDBE /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,26 +23,16 @@
 			remoteGlobalIDString = 3399BF282A1B8C7E000ADDBE;
 			remoteInfo = Onboarding;
 		};
-		3399BF442A1B8C80000ADDBE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3399BF212A1B8C7E000ADDBE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3399BF282A1B8C7E000ADDBE;
-			remoteInfo = Onboarding;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3399BF292A1B8C7E000ADDBE /* Onboarding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Onboarding.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3399BF2C2A1B8C7E000ADDBE /* OnboardingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingApp.swift; sourceTree = "<group>"; };
-		3399BF2E2A1B8C7E000ADDBE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3399BF2C2A1B8C7E000ADDBE /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		3399BF2E2A1B8C7E000ADDBE /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		3399BF302A1B8C7F000ADDBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3399BF332A1B8C7F000ADDBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3399BF392A1B8C80000ADDBE /* OnboardingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnboardingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3399BF3D2A1B8C80000ADDBE /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
-		3399BF432A1B8C80000ADDBE /* OnboardingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnboardingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3399BF472A1B8C80000ADDBE /* OnboardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUITests.swift; sourceTree = "<group>"; };
-		3399BF492A1B8C80000ADDBE /* OnboardingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3399BF3D2A1B8C80000ADDBE /* AppReducerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,17 +40,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3399BF5B2A1B8D6F000ADDBE /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3399BF362A1B8C80000ADDBE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3399BF402A1B8C80000ADDBE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -76,7 +59,6 @@
 			children = (
 				3399BF2B2A1B8C7E000ADDBE /* Onboarding */,
 				3399BF3C2A1B8C80000ADDBE /* OnboardingTests */,
-				3399BF462A1B8C80000ADDBE /* OnboardingUITests */,
 				3399BF2A2A1B8C7E000ADDBE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,7 +68,6 @@
 			children = (
 				3399BF292A1B8C7E000ADDBE /* Onboarding.app */,
 				3399BF392A1B8C80000ADDBE /* OnboardingTests.xctest */,
-				3399BF432A1B8C80000ADDBE /* OnboardingUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,10 +75,9 @@
 		3399BF2B2A1B8C7E000ADDBE /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				3399BF2C2A1B8C7E000ADDBE /* OnboardingApp.swift */,
-				3399BF2E2A1B8C7E000ADDBE /* ContentView.swift */,
-				3399BF302A1B8C7F000ADDBE /* Assets.xcassets */,
-				3399BF322A1B8C7F000ADDBE /* Preview Content */,
+				3399BF572A1B8CDC000ADDBE /* Dependencies */,
+				3399BF562A1B8CD6000ADDBE /* Features */,
+				3399BF582A1B8CE9000ADDBE /* Resources */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -113,18 +93,34 @@
 		3399BF3C2A1B8C80000ADDBE /* OnboardingTests */ = {
 			isa = PBXGroup;
 			children = (
-				3399BF3D2A1B8C80000ADDBE /* OnboardingTests.swift */,
+				3399BF3D2A1B8C80000ADDBE /* AppReducerTests.swift */,
 			);
 			path = OnboardingTests;
 			sourceTree = "<group>";
 		};
-		3399BF462A1B8C80000ADDBE /* OnboardingUITests */ = {
+		3399BF562A1B8CD6000ADDBE /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				3399BF472A1B8C80000ADDBE /* OnboardingUITests.swift */,
-				3399BF492A1B8C80000ADDBE /* OnboardingUITestsLaunchTests.swift */,
+				3399BF2E2A1B8C7E000ADDBE /* AppReducer.swift */,
 			);
-			path = OnboardingUITests;
+			path = Features;
+			sourceTree = "<group>";
+		};
+		3399BF572A1B8CDC000ADDBE /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		3399BF582A1B8CE9000ADDBE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3399BF322A1B8C7F000ADDBE /* Preview Content */,
+				3399BF2C2A1B8C7E000ADDBE /* Main.swift */,
+				3399BF302A1B8C7F000ADDBE /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +139,9 @@
 			dependencies = (
 			);
 			name = Onboarding;
+			packageProductDependencies = (
+				3399BF5A2A1B8D6F000ADDBE /* ComposableArchitecture */,
+			);
 			productName = Onboarding;
 			productReference = 3399BF292A1B8C7E000ADDBE /* Onboarding.app */;
 			productType = "com.apple.product-type.application";
@@ -165,24 +164,6 @@
 			productReference = 3399BF392A1B8C80000ADDBE /* OnboardingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3399BF422A1B8C80000ADDBE /* OnboardingUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3399BF532A1B8C80000ADDBE /* Build configuration list for PBXNativeTarget "OnboardingUITests" */;
-			buildPhases = (
-				3399BF3F2A1B8C80000ADDBE /* Sources */,
-				3399BF402A1B8C80000ADDBE /* Frameworks */,
-				3399BF412A1B8C80000ADDBE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3399BF452A1B8C80000ADDBE /* PBXTargetDependency */,
-			);
-			name = OnboardingUITests;
-			productName = OnboardingUITests;
-			productReference = 3399BF432A1B8C80000ADDBE /* OnboardingUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -200,10 +181,6 @@
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 3399BF282A1B8C7E000ADDBE;
 					};
-					3399BF422A1B8C80000ADDBE = {
-						CreatedOnToolsVersion = 14.3;
-						TestTargetID = 3399BF282A1B8C7E000ADDBE;
-					};
 				};
 			};
 			buildConfigurationList = 3399BF242A1B8C7E000ADDBE /* Build configuration list for PBXProject "Onboarding" */;
@@ -215,13 +192,15 @@
 				Base,
 			);
 			mainGroup = 3399BF202A1B8C7E000ADDBE;
+			packageReferences = (
+				3399BF592A1B8D6F000ADDBE /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 3399BF2A2A1B8C7E000ADDBE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				3399BF282A1B8C7E000ADDBE /* Onboarding */,
 				3399BF382A1B8C80000ADDBE /* OnboardingTests */,
-				3399BF422A1B8C80000ADDBE /* OnboardingUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -243,13 +222,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3399BF412A1B8C80000ADDBE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -257,8 +229,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3399BF2F2A1B8C7E000ADDBE /* ContentView.swift in Sources */,
-				3399BF2D2A1B8C7E000ADDBE /* OnboardingApp.swift in Sources */,
+				3399BF2F2A1B8C7E000ADDBE /* AppReducer.swift in Sources */,
+				3399BF2D2A1B8C7E000ADDBE /* Main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,16 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3399BF3E2A1B8C80000ADDBE /* OnboardingTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3399BF3F2A1B8C80000ADDBE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3399BF482A1B8C80000ADDBE /* OnboardingUITests.swift in Sources */,
-				3399BF4A2A1B8C80000ADDBE /* OnboardingUITestsLaunchTests.swift in Sources */,
+				3399BF3E2A1B8C80000ADDBE /* AppReducerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,11 +249,6 @@
 			isa = PBXTargetDependency;
 			target = 3399BF282A1B8C7E000ADDBE /* Onboarding */;
 			targetProxy = 3399BF3A2A1B8C80000ADDBE /* PBXContainerItemProxy */;
-		};
-		3399BF452A1B8C80000ADDBE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3399BF282A1B8C7E000ADDBE /* Onboarding */;
-			targetProxy = 3399BF442A1B8C80000ADDBE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -416,7 +374,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Onboarding/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Onboarding/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = ME637H7ZM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -445,7 +403,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Onboarding/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Onboarding/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = ME637H7ZM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -507,42 +465,6 @@
 			};
 			name = Release;
 		};
-		3399BF542A1B8C80000ADDBE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ME637H7ZM9;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.deda.OnboardingUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Onboarding;
-			};
-			name = Debug;
-		};
-		3399BF552A1B8C80000ADDBE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ME637H7ZM9;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.deda.OnboardingUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Onboarding;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -573,16 +495,26 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3399BF532A1B8C80000ADDBE /* Build configuration list for PBXNativeTarget "OnboardingUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3399BF542A1B8C80000ADDBE /* Debug */,
-				3399BF552A1B8C80000ADDBE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3399BF592A1B8D6F000ADDBE /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				branch = prerelease/1.0;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3399BF5A2A1B8D6F000ADDBE /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3399BF592A1B8D6F000ADDBE /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3399BF212A1B8C7E000ADDBE /* Project object */;
 }

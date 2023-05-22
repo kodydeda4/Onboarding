@@ -3,7 +3,7 @@ import Foundation
 
 struct AuthClient: DependencyKey {
   var getUser: @Sendable () async throws -> User?
-  var setUser: @Sendable (User) async throws -> Void
+  var setUser: @Sendable (User?) async throws -> Void
   
   struct Failure: Equatable, Error {}
   
@@ -26,8 +26,8 @@ extension DependencyValues {
 // MARK: - Implementations
 
 extension AuthClient {
-  static var liveValue = Self.init(getUser: { .mock }, setUser: { _ in })
-  static var previewValue = Self.init(getUser: { .mock }, setUser: { _ in })
+  static var liveValue = Self.live
+  static var previewValue = Self.live
   static var testValue = Self.init(getUser: { .mock }, setUser: { _ in })
 }
 

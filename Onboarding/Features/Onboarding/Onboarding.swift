@@ -8,13 +8,24 @@ struct Onboarding: Reducer {
   
   enum Action: Equatable {
     case path(StackAction<Path.State, Path.Action>)
+    case didComplete
   }
   
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
         
-      case .path:
+      case let .path(action):
+        switch action {
+
+        case .element(id: _, action: .confirmPin(.didComplete)):
+          return .send(.didComplete)
+
+        default:
+          return .none
+        }
+        
+      case .didComplete:
         return .none
       }
     }

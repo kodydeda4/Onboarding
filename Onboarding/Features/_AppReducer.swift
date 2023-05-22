@@ -3,32 +3,90 @@ import SwiftUI
 
 ///
 /// Todo:
-/// 1. Switch between logged in onboarding
-/// 2. Add `Tagged` to AuthClient.User
-/// 3. Add `@FocusState` to forms
-/// 4. Add bonus points
-/// 5. Write tests
+/// -[x] Switch between onboarding & main
+/// -[ ] Add `Tagged` to AuthClient.User
+/// -[ ] Add `@FocusState` to forms
+/// -[ ] Add bonus points
+/// -[ ] Use AsyncStream for value?
+/// -[ ] Write tests
 ///
 
-
-struct AppReducer: Reducer {
-  enum State: Codable, Equatable, Hashable {
-    case onboarding(Onboarding.State)
-    case main(MainReducer.State)
+struct AppReducer: ReducerProtocol {
+  struct State: Equatable {
+    var isLoadingInitialState = true
+    var destination: Destination
+    
+    enum Destination: Equatable {
+      case onboarding(Onboarding.State)
+      case main(MainReducer.State)
+    }
   }
   
   enum Action: Equatable {
-    case onboarding(Onboarding.Action)
-    case main(MainReducer.Action)
+    case task
+    case taskResponse(TaskResult<State.Destination>)
+    case setDestination(State.Destination)
+    case destination(Destination)
+    
+    enum Destination: Equatable {
+      case onboarding(Onboarding.Action)
+      case main(MainReducer.Action)
+    }
   }
   
-  var body: some Reducer<State, Action> {
-    Scope(state: /State.onboarding, action: /Action.onboarding) {
-      Onboarding()
+  @Dependency(\.auth) var auth
+  
+  var body: some ReducerProtocolOf<Self> {
+    Scope(state: \.destination, action: /Action.destination) {
+      EmptyReducer()
+        .ifCaseLet(
+          /State.Destination.onboarding,
+          action: /Action.Destination.onboarding,
+          then: Onboarding.init
+        )
+        .ifCaseLet(
+          /State.Destination.main,
+          action: /Action.Destination.main,
+          then: MainReducer.init
+        )
     }
-    Scope(state: /State.main, action: /Action.main) {
-      MainReducer()
+    Reduce { state, action in
+      switch action {
+      case .task:
+        state.isLoadingInitialState = true
+        return .task {
+          await .taskResponse(TaskResult {
+            guard let user = try await self.auth.getUser() else {
+              return .onboarding(Onboarding.State())
+            }
+            return .main(MainReducer.State(user: user))
+          })
+        }
+        
+      case let .taskResponse(.success(value)):
+        state.isLoadingInitialState = false
+        state.destination = value
+        return .none
+        
+      case .taskResponse(.failure):
+        state.isLoadingInitialState = false
+        return .none
+        
+      case let .setDestination(value):
+        state.destination = value
+        return .none
+        
+      case let .destination(action):
+        switch action {
+        case .onboarding(.didComplete),
+            .main(.didSignout):
+          return .send(.task)
+        default:
+          return .none
+        }
+      }
     }
+    ._printChanges()
   }
 }
 
@@ -37,18 +95,36 @@ struct AppReducer: Reducer {
 struct AppView: View {
   let store: StoreOf<AppReducer>
   
+  struct ViewState: Equatable {
+    let isLoadingInitialState: Bool
+    
+    init(_ state: AppReducer.State) {
+      self.isLoadingInitialState = state.isLoadingInitialState
+    }
+  }
+  
   var body: some View {
-    SwitchStore(store) {
-      CaseLet(
-        state: /AppReducer.State.onboarding,
-        action: AppReducer.Action.onboarding,
-        then: OnboardingView.init(store:)
-      )
-      CaseLet(
-        state: /AppReducer.State.main,
-        action: AppReducer.Action.main,
-        then: MainView.init(store:)
-      )
+    WithViewStore(store, observe: ViewState.init) { viewStore in
+      if viewStore.isLoadingInitialState {
+        VStack {}
+          .task { await viewStore.send(.task).finish() }
+      } else {
+        SwitchStore(store.scope(
+          state: \.destination,
+          action: AppReducer.Action.destination
+        )) {
+          CaseLet(
+            state: /AppReducer.State.Destination.onboarding,
+            action: AppReducer.Action.Destination.onboarding,
+            then: OnboardingView.init
+          )
+          CaseLet(
+            state: /AppReducer.State.Destination.main,
+            action: AppReducer.Action.Destination.main,
+            then: MainView.init
+          )
+        }
+      }
     }
   }
 }
@@ -58,7 +134,9 @@ struct AppView: View {
 struct AppView_Previews: PreviewProvider {
   static var previews: some View {
     AppView(store: Store(
-      initialState: AppReducer.State.onboarding(.init()),
+      initialState: AppReducer.State(
+        destination: .onboarding(.init())
+      ),
       reducer: AppReducer()
     ))
   }

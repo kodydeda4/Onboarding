@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		331043A92A1BCD570071E675 /* DependenciesAdditions in Frameworks */ = {isa = PBXBuildFile; productRef = 331043A82A1BCD570071E675 /* DependenciesAdditions */; };
+		331043AB2A1BCD570071E675 /* _AppStorageDependency in Frameworks */ = {isa = PBXBuildFile; productRef = 331043AA2A1BCD570071E675 /* _AppStorageDependency */; };
+		331043AD2A1BD1330071E675 /* UserDefaults+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331043AC2A1BD1330071E675 /* UserDefaults+extensions.swift */; };
 		3399BF2D2A1B8C7E000ADDBE /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF2C2A1B8C7E000ADDBE /* Main.swift */; };
 		3399BF2F2A1B8C7E000ADDBE /* _AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF2E2A1B8C7E000ADDBE /* _AppReducer.swift */; };
 		3399BF312A1B8C7F000ADDBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3399BF302A1B8C7F000ADDBE /* Assets.xcassets */; };
@@ -20,8 +23,6 @@
 		3399BF692A1B963B000ADDBE /* 04-ConfirmPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF682A1B963B000ADDBE /* 04-ConfirmPin.swift */; };
 		3399BF6B2A1BA12D000ADDBE /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF6A2A1BA12D000ADDBE /* Onboarding.swift */; };
 		3399BF6E2A1BA211000ADDBE /* MainReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF6D2A1BA211000ADDBE /* MainReducer.swift */; };
-		3399BF722A1BA4E7000ADDBE /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF712A1BA4E7000ADDBE /* AuthClient.swift */; };
-		3399BF742A1BB13D000ADDBE /* AuthClient.live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF732A1BB13D000ADDBE /* AuthClient.live.swift */; };
 		3399BF772A1BB8AA000ADDBE /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = 3399BF762A1BB8AA000ADDBE /* Tagged */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		331043AC2A1BD1330071E675 /* UserDefaults+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+extensions.swift"; sourceTree = "<group>"; };
 		3399BF292A1B8C7E000ADDBE /* Onboarding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Onboarding.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3399BF2C2A1B8C7E000ADDBE /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		3399BF2E2A1B8C7E000ADDBE /* _AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _AppReducer.swift; sourceTree = "<group>"; };
@@ -50,8 +52,6 @@
 		3399BF682A1B963B000ADDBE /* 04-ConfirmPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "04-ConfirmPin.swift"; sourceTree = "<group>"; };
 		3399BF6A2A1BA12D000ADDBE /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		3399BF6D2A1BA211000ADDBE /* MainReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainReducer.swift; sourceTree = "<group>"; };
-		3399BF712A1BA4E7000ADDBE /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
-		3399BF732A1BB13D000ADDBE /* AuthClient.live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.live.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				331043A92A1BCD570071E675 /* DependenciesAdditions in Frameworks */,
+				331043AB2A1BCD570071E675 /* _AppStorageDependency in Frameworks */,
 				3399BF772A1BB8AA000ADDBE /* Tagged in Frameworks */,
 				3399BF5B2A1B8D6F000ADDBE /* ComposableArchitecture in Frameworks */,
 			);
@@ -131,7 +133,7 @@
 		3399BF572A1B8CDC000ADDBE /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				3399BF702A1BA4DB000ADDBE /* AuthClient */,
+				331043AC2A1BD1330071E675 /* UserDefaults+extensions.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -167,15 +169,6 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		3399BF702A1BA4DB000ADDBE /* AuthClient */ = {
-			isa = PBXGroup;
-			children = (
-				3399BF712A1BA4E7000ADDBE /* AuthClient.swift */,
-				3399BF732A1BB13D000ADDBE /* AuthClient.live.swift */,
-			);
-			path = AuthClient;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -195,6 +188,8 @@
 			packageProductDependencies = (
 				3399BF5A2A1B8D6F000ADDBE /* ComposableArchitecture */,
 				3399BF762A1BB8AA000ADDBE /* Tagged */,
+				331043A82A1BCD570071E675 /* DependenciesAdditions */,
+				331043AA2A1BCD570071E675 /* _AppStorageDependency */,
 			);
 			productName = Onboarding;
 			productReference = 3399BF292A1B8C7E000ADDBE /* Onboarding.app */;
@@ -249,6 +244,7 @@
 			packageReferences = (
 				3399BF592A1B8D6F000ADDBE /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				3399BF752A1BB8AA000ADDBE /* XCRemoteSwiftPackageReference "swift-tagged" */,
+				331043A72A1BCD570071E675 /* XCRemoteSwiftPackageReference "swift-dependencies-additions" */,
 			);
 			productRefGroup = 3399BF2A2A1B8C7E000ADDBE /* Products */;
 			projectDirPath = "";
@@ -288,12 +284,11 @@
 				3399BF6B2A1BA12D000ADDBE /* Onboarding.swift in Sources */,
 				3399BF612A1B93A0000ADDBE /* 00-TermsOfService.swift in Sources */,
 				3399BF5D2A1B9382000ADDBE /* 01-Credentials.swift in Sources */,
-				3399BF722A1BA4E7000ADDBE /* AuthClient.swift in Sources */,
 				3399BF692A1B963B000ADDBE /* 04-ConfirmPin.swift in Sources */,
 				3399BF2F2A1B8C7E000ADDBE /* _AppReducer.swift in Sources */,
 				3399BF652A1B94AC000ADDBE /* 03-NewPin.swift in Sources */,
-				3399BF742A1BB13D000ADDBE /* AuthClient.live.swift in Sources */,
 				3399BF2D2A1B8C7E000ADDBE /* Main.swift in Sources */,
+				331043AD2A1BD1330071E675 /* UserDefaults+extensions.swift in Sources */,
 				3399BF632A1B9482000ADDBE /* 02-PersonalInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,6 +559,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		331043A72A1BCD570071E675 /* XCRemoteSwiftPackageReference "swift-dependencies-additions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tgrapperon/swift-dependencies-additions";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.1;
+			};
+		};
 		3399BF592A1B8D6F000ADDBE /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
@@ -583,6 +586,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		331043A82A1BCD570071E675 /* DependenciesAdditions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 331043A72A1BCD570071E675 /* XCRemoteSwiftPackageReference "swift-dependencies-additions" */;
+			productName = DependenciesAdditions;
+		};
+		331043AA2A1BCD570071E675 /* _AppStorageDependency */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 331043A72A1BCD570071E675 /* XCRemoteSwiftPackageReference "swift-dependencies-additions" */;
+			productName = _AppStorageDependency;
+		};
 		3399BF5A2A1B8D6F000ADDBE /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3399BF592A1B8D6F000ADDBE /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;

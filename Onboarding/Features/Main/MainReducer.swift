@@ -3,7 +3,7 @@ import SwiftUI
 
 struct MainReducer: Reducer {
   struct State: Equatable {
-    let user: AuthClient.User
+    let user: UserDefaults.Dependency.User
     @PresentationState var alert: AlertState<Action.Alert>?
   }
   
@@ -18,7 +18,7 @@ struct MainReducer: Reducer {
     }
   }
   
-  @Dependency(\.auth) var auth
+  @Dependency(\.userDefaults) var userDefaults
   
   var body: some Reducer<State, Action> {
     Reduce { state, action in
@@ -37,7 +37,7 @@ struct MainReducer: Reducer {
       case .alert(.presented(.confirmSignoutButtonTapped)):
         return .task {
           await .signoutResponse(TaskResult {
-            try await self.auth.setUser(nil)
+            self.userDefaults.set(Optional<Data>(nil), forKey: "user")
             return "Success"
           })
         }

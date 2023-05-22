@@ -4,9 +4,10 @@ import SwiftUI
 ///
 /// Todo:
 /// -[x] Switch between onboarding & main
-/// -[ ] Add `Tagged` to AuthClient.User
+/// -[X] Add `Tagged` to AuthClient.User
+/// -[X] AppIcon
+/// -[X] Persist data
 /// -[ ] Add `@FocusState` to forms
-/// -[ ] AppIcon
 /// -[ ] Add bonus points
 /// -[ ] Use AsyncStream for value?
 /// -[ ] Write tests
@@ -34,7 +35,7 @@ struct AppReducer: ReducerProtocol {
     }
   }
   
-  @Dependency(\.auth) var auth
+  @Dependency(\.userDefaults) var userDefaults
   
   var body: some ReducerProtocolOf<Self> {
     Scope(state: \.destination, action: /Action.destination) {
@@ -56,7 +57,10 @@ struct AppReducer: ReducerProtocol {
         state.isLoadingInitialState = true
         return .task {
           await .taskResponse(TaskResult {
-            guard let user = try await self.auth.getUser() else {
+            guard
+              let userData = self.userDefaults.data(forKey: "user"),
+              let user = try? JSONDecoder().decode(UserDefaults.Dependency.User.self, from: userData)
+            else {
               return .onboarding(Onboarding.State())
             }
             return .main(MainReducer.State(user: user))
@@ -82,7 +86,6 @@ struct AppReducer: ReducerProtocol {
         }
       }
     }
-//    ._printChanges()
   }
 }
 

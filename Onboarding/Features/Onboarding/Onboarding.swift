@@ -1,11 +1,13 @@
 import ComposableArchitecture
 import SwiftUI
+import DependenciesAdditions
+import _AppStorageDependency
 
 struct Onboarding: Reducer {
   struct State: Codable, Equatable, Hashable {
     var path = StackState<Path.State>()
-    var user = AuthClient.User(
-      id: AuthClient.User.ID(),
+    var user = UserDefaults.Dependency.User(
+      id: .init(),
       email: String(),
       password: String(),
       firstName: String(),
@@ -20,8 +22,9 @@ struct Onboarding: Reducer {
     case didComplete
   }
   
-  @Dependency(\.auth) var auth
-  
+//  @Dependency(\.auth) var auth
+  @Dependency(\.userDefaults) var userDefaults
+
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
@@ -58,7 +61,7 @@ struct Onboarding: Reducer {
         case .element(id: _, action: .confirmPin(.doneButtonTapped)):
           return .task { [user = state.user] in
             await .saveUserResponse(TaskResult {
-              try await self.auth.setUser(user)
+              try self.userDefaults.set(JSONEncoder().encode(user), forKey: "user")
               return "Success"
             })
           }

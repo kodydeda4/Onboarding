@@ -17,12 +17,11 @@ This demo makes use of `UserDefaults.Dependency` found in [swift-dependency-addi
   * ConfirmPin
  
  ## Screenshots
-<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/c85eb18d-1785-45d6-a3c5-e71627295f9c">
-<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/78bd18f2-49b4-4727-afb8-5a13ca6703f9">
-<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/65807465-0ed1-4d1f-a5f2-3998acdf07ab">
-<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/f63f6d4c-5337-4b60-a037-0fa10fee53b1">
-<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/c78b56f3-3047-4a65-a8f1-cdd629fe8567">
-<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/95366c40-1aa2-4860-9410-16c51843de78">
-
-<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/03ffa395-27c9-43be-b38e-456d6cabdeb9">
-<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/89da0f66-84fe-4df0-b9c3-6e5f8fc47871">
+<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/f407e8a5-e8b3-42f4-884d-9c806a8031d4">
+<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/c961bafe-8f04-4fd9-a8cb-b42f51a35ce5">
+<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/bd84bd3b-03d1-4547-95ee-ef84d91d7a04">
+<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/2ac47f7d-afac-46ae-a3a9-89456dbfd3f6">
+<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/82e34d34-174a-445d-90f4-0ab1b6c83ae7">
+<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/b3dfa744-0a73-4335-bc03-0cacad6392a2">
+<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/dc6b0276-f111-478f-8206-3ae6cfd5ae9e">
+<img width="225" src="https://github.com/kodydeda4/Onboarding/assets/45678211/8fa17acd-7e6a-4eca-9673-6448cfee97cf">

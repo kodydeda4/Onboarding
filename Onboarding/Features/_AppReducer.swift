@@ -15,7 +15,6 @@ import SwiftUI
 
 struct AppReducer: ReducerProtocol {
   struct State: Equatable {
-    var isLoadingInitialState = true
     var destination = Destination.onboarding(.init())
     
     enum Destination: Equatable {
@@ -54,27 +53,20 @@ struct AppReducer: ReducerProtocol {
     Reduce { state, action in
       switch action {
       case .task:
-        state.isLoadingInitialState = true
         return .task {
           await .taskResponse(TaskResult {
             guard
               let userData = self.userDefaults.data(forKey: "user"),
               let user = try? JSONDecoder().decode(UserDefaults.Dependency.User.self, from: userData)
-            else {
-              return .onboarding(Onboarding.State())
-            }
+            else { return .onboarding(Onboarding.State()) }
             return .main(MainReducer.State(user: user))
           })
         }
         
       case let .taskResponse(.success(value)):
-        state.isLoadingInitialState = false
         state.destination = value
         return .none
         
-      case .taskResponse(.failure):
-        state.isLoadingInitialState = false
-        return .none
         
       case let .destination(action):
         switch action {
@@ -84,6 +76,10 @@ struct AppReducer: ReducerProtocol {
         default:
           return .none
         }
+        
+      case .taskResponse:
+        return .none
+
       }
     }
   }
@@ -94,36 +90,24 @@ struct AppReducer: ReducerProtocol {
 struct AppView: View {
   let store: StoreOf<AppReducer>
   
-  struct ViewState: Equatable {
-    let isLoadingInitialState: Bool
-    
-    init(_ state: AppReducer.State) {
-      self.isLoadingInitialState = state.isLoadingInitialState
-    }
-  }
-  
   var body: some View {
-    WithViewStore(store, observe: ViewState.init) { viewStore in
-      if viewStore.isLoadingInitialState {
-        VStack {}
-          .task { await viewStore.send(.task).finish() }
-      } else {
-        SwitchStore(store.scope(
-          state: \.destination,
-          action: AppReducer.Action.destination
-        )) {
-          CaseLet(
-            state: /AppReducer.State.Destination.onboarding,
-            action: AppReducer.Action.Destination.onboarding,
-            then: OnboardingView.init
-          )
-          CaseLet(
-            state: /AppReducer.State.Destination.main,
-            action: AppReducer.Action.Destination.main,
-            then: MainView.init
-          )
-        }
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      SwitchStore(store.scope(
+        state: \.destination,
+        action: AppReducer.Action.destination
+      )) {
+        CaseLet(
+          state: /AppReducer.State.Destination.onboarding,
+          action: AppReducer.Action.Destination.onboarding,
+          then: OnboardingView.init
+        )
+        CaseLet(
+          state: /AppReducer.State.Destination.main,
+          action: AppReducer.Action.Destination.main,
+          then: MainView.init
+        )
       }
+      .task { await viewStore.send(.task).finish() }
     }
   }
 }

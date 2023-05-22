@@ -22,6 +22,7 @@
 		3399BF6E2A1BA211000ADDBE /* MainReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF6D2A1BA211000ADDBE /* MainReducer.swift */; };
 		3399BF722A1BA4E7000ADDBE /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF712A1BA4E7000ADDBE /* AuthClient.swift */; };
 		3399BF742A1BB13D000ADDBE /* AuthClient.live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399BF732A1BB13D000ADDBE /* AuthClient.live.swift */; };
+		3399BF772A1BB8AA000ADDBE /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = 3399BF762A1BB8AA000ADDBE /* Tagged */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3399BF772A1BB8AA000ADDBE /* Tagged in Frameworks */,
 				3399BF5B2A1B8D6F000ADDBE /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,6 +194,7 @@
 			name = Onboarding;
 			packageProductDependencies = (
 				3399BF5A2A1B8D6F000ADDBE /* ComposableArchitecture */,
+				3399BF762A1BB8AA000ADDBE /* Tagged */,
 			);
 			productName = Onboarding;
 			productReference = 3399BF292A1B8C7E000ADDBE /* Onboarding.app */;
@@ -245,6 +248,7 @@
 			mainGroup = 3399BF202A1B8C7E000ADDBE;
 			packageReferences = (
 				3399BF592A1B8D6F000ADDBE /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				3399BF752A1BB8AA000ADDBE /* XCRemoteSwiftPackageReference "swift-tagged" */,
 			);
 			productRefGroup = 3399BF2A2A1B8C7E000ADDBE /* Products */;
 			projectDirPath = "";
@@ -568,6 +572,14 @@
 				kind = branch;
 			};
 		};
+		3399BF752A1BB8AA000ADDBE /* XCRemoteSwiftPackageReference "swift-tagged" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-tagged";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -575,6 +587,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3399BF592A1B8D6F000ADDBE /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		3399BF762A1BB8AA000ADDBE /* Tagged */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3399BF752A1BB8AA000ADDBE /* XCRemoteSwiftPackageReference "swift-tagged" */;
+			productName = Tagged;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

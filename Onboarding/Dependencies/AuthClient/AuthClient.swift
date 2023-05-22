@@ -1,5 +1,6 @@
 import Dependencies
 import Foundation
+import Tagged
 
 struct AuthClient: DependencyKey {
   var getUser: @Sendable () async throws -> User?
@@ -8,11 +9,14 @@ struct AuthClient: DependencyKey {
   struct Failure: Equatable, Error {}
   
   struct User: Codable, Equatable, Hashable, Identifiable {
-    let id: UUID
-    let firstName: String
-    let lastName: String
-    let email: String
-    let pin: String
+    let id: ID
+    var email: String
+    var password: String
+    var firstName: String
+    var lastName: String
+    var pin: String
+    
+    typealias ID = Tagged<Self, UUID>
   }
 }
 
@@ -28,15 +32,19 @@ extension DependencyValues {
 extension AuthClient {
   static var liveValue = Self.live
   static var previewValue = Self.live
-  static var testValue = Self.init(getUser: { .mock }, setUser: { _ in })
+  static var testValue = Self(
+    getUser: unimplemented("\(Self.self).getUser"),
+    setUser: unimplemented("\(Self.self).setUser")
+  )
 }
 
 extension AuthClient.User {
   static let mock = Self(
     id: .init(),
+    email: "blob@pointfree.co",
+    password: "1234",
     firstName: "Blob",
     lastName: "Jr",
-    email: "blob@pointfree.co",
     pin: "1234"
   )
 }

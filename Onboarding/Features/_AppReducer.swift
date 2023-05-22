@@ -6,6 +6,7 @@ import SwiftUI
 /// -[x] Switch between onboarding & main
 /// -[ ] Add `Tagged` to AuthClient.User
 /// -[ ] Add `@FocusState` to forms
+/// -[ ] AppIcon
 /// -[ ] Add bonus points
 /// -[ ] Use AsyncStream for value?
 /// -[ ] Write tests
@@ -25,7 +26,6 @@ struct AppReducer: ReducerProtocol {
   enum Action: Equatable {
     case task
     case taskResponse(TaskResult<State.Destination>)
-    case setDestination(State.Destination)
     case destination(Destination)
     
     enum Destination: Equatable {
@@ -41,13 +41,13 @@ struct AppReducer: ReducerProtocol {
       EmptyReducer()
         .ifCaseLet(
           /State.Destination.onboarding,
-          action: /Action.Destination.onboarding,
-          then: Onboarding.init
+           action: /Action.Destination.onboarding,
+           then: Onboarding.init
         )
         .ifCaseLet(
           /State.Destination.main,
-          action: /Action.Destination.main,
-          then: MainReducer.init
+           action: /Action.Destination.main,
+           then: MainReducer.init
         )
     }
     Reduce { state, action in
@@ -72,10 +72,6 @@ struct AppReducer: ReducerProtocol {
         state.isLoadingInitialState = false
         return .none
         
-      case let .setDestination(value):
-        state.destination = value
-        return .none
-        
       case let .destination(action):
         switch action {
         case .onboarding(.didComplete),
@@ -86,7 +82,7 @@ struct AppReducer: ReducerProtocol {
         }
       }
     }
-    ._printChanges()
+//    ._printChanges()
   }
 }
 
@@ -134,9 +130,7 @@ struct AppView: View {
 struct AppView_Previews: PreviewProvider {
   static var previews: some View {
     AppView(store: Store(
-      initialState: AppReducer.State(
-        destination: .onboarding(.init())
-      ),
+      initialState: AppReducer.State(destination: .onboarding(.init())),
       reducer: AppReducer()
     ))
   }

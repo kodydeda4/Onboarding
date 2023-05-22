@@ -4,26 +4,16 @@ import SwiftUI
 struct NewPin: Reducer {
   struct State: Codable, Equatable, Hashable {
     @BindingState var pin = String()
-    
-    var isNextButtonDisabled: Bool {
-      pin.isEmpty
-    }
+    var isNextButtonDisabled: Bool { pin.isEmpty }
   }
   
   enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
+    case nextButtonTapped
   }
   
   var body: some Reducer<State, Action> {
     BindingReducer()
-    Reduce { state, action in
-      switch action {
-      
-      case .binding:
-        return .none
-        
-      }
-    }
   }
 }
 
@@ -42,10 +32,9 @@ struct NewPinView: View {
       .navigationTitle("New Pin")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
-          NavigationLink(
-            "Next",
-            state: Onboarding.Path.State.confirmPin(.init(pin: viewStore.pin))
-          )
+          Button("Next") {
+            viewStore.send(.nextButtonTapped)
+          }
           .disabled(viewStore.isNextButtonDisabled)
         }
       }

@@ -4,12 +4,23 @@ import SwiftUI
 struct Onboarding: Reducer {
   struct State: Codable, Equatable, Hashable {
     var path = StackState<Path.State>()
+    var user = AuthClient.User(
+      id: AuthClient.User.ID(),
+      email: String(),
+      password: String(),
+      firstName: String(),
+      lastName: String(),
+      pin: String()
+    )
   }
   
   enum Action: Equatable {
     case path(StackAction<Path.State, Path.Action>)
+    case saveUserResponse(TaskResult<String>)
     case didComplete
   }
+  
+  @Dependency(\.auth) var auth
   
   var body: some Reducer<State, Action> {
     Reduce { state, action in
@@ -17,15 +28,49 @@ struct Onboarding: Reducer {
         
       case let .path(action):
         switch action {
+                    
+        case .element(id: _, action: .termsOfService(.nextButtonTapped)):
+          state.path.append(.credentials())
+          return .none
+          
+        case let .element(id: id, action: .credentials(.nextButtonTapped)):
+          guard case let .some(.credentials(childState)) = state.path[id: id]
+          else { return .none }
+          state.user.email = childState.email
+          state.user.password = childState.password
+          state.path.append(.personalInfo())
+          return .none
+          
+        case let .element(id: id, action: .personalInfo(.nextButtonTapped)):
+          guard case let .some(.personalInfo(childState)) = state.path[id: id]
+          else { return .none }
+          state.user.firstName = childState.firstName
+          state.user.lastName = childState.lastName
+          state.path.append(.newPin())
+          return .none
 
-        case .element(id: _, action: .confirmPin(.didComplete)):
-          return .send(.didComplete)
+        case let .element(id: id, action: .newPin(.nextButtonTapped)):
+          guard case let .some(.newPin(childState)) = state.path[id: id]
+          else { return .none }
+          state.path.append(.confirmPin(.init(pin: childState.pin)))
+          return .none
+
+        case .element(id: _, action: .confirmPin(.doneButtonTapped)):
+          return .task { [user = state.user] in
+            await .saveUserResponse(TaskResult {
+              try await self.auth.setUser(user)
+              return "Success"
+            })
+          }
 
         default:
           return .none
         }
         
-      case .didComplete:
+      case .saveUserResponse(.success):
+        return .send(.didComplete)
+
+      case .saveUserResponse, .didComplete:
         return .none
       }
     }

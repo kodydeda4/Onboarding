@@ -76,10 +76,17 @@ struct MainView: View {
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationStack {
-        Form {
-          Text("Welcome back")
+        List {
+          Section("👋 Welcome Back") {
+            Text("\(viewStore.user.firstName) \(viewStore.user.lastName)")
+              .bold()
+            Text(viewStore.user.email)
+            Text(viewStore.user.id.description)
+              .font(.caption)
+              .foregroundStyle(.secondary)
+          }
         }
-        .navigationTitle("\(viewStore.user.firstName) \(viewStore.user.lastName)")
+        .navigationTitle("Main")
         .toolbar {
           ToolbarItemGroup(placement: .navigationBarTrailing) {
             Button("Sign Out") {
@@ -105,9 +112,10 @@ struct LoggedInView_Previews: PreviewProvider {
       initialState: MainReducer.State(
         user: .init(
           id: .init(),
+          email: "blob@pointfree.co",
+          password: "1234",
           firstName: "Blob",
           lastName: "Jr",
-          email: "blob@pointfree.co",
           pin: "1234"
         )
       ),

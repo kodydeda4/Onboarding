@@ -9,6 +9,7 @@ struct TermsOfService: Reducer {
   
   enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
+    case nextButtonTapped
   }
     
   var body: some Reducer<State, Action> {
@@ -33,10 +34,9 @@ Terms of service are the legal agreements between a service provider and a perso
       .navigationTitle("Terms Of Service")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
-          NavigationLink(
-            "Next",
-            state: Onboarding.Path.State.credentials()
-          )
+          Button("Next") {
+            viewStore.send(.nextButtonTapped)
+          }
           .disabled(viewStore.isNextButtonDisabled)
         }
       }

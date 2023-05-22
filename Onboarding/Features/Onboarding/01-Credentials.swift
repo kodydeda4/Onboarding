@@ -13,20 +13,13 @@ struct Credentials: Reducer {
   
   enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
+    case nextButtonTapped
   }
   
   @Dependency(\.dismiss) var dismiss
   
   var body: some Reducer<State, Action> {
     BindingReducer()
-    Reduce { state, action in
-      switch action {
-      
-      case .binding:
-        return .none
-        
-      }
-    }
   }
 }
 
@@ -46,10 +39,9 @@ struct CredentialsView: View {
       .navigationTitle("Credentials")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
-          NavigationLink(
-            "Next",
-            state: Onboarding.Path.State.personalInfo()
-          )
+          Button("Next") {
+            viewStore.send(.nextButtonTapped)
+          }
           .disabled(viewStore.isNextButtonDisabled)
         }
       }

@@ -10,6 +10,7 @@ extension UserDefaults.Dependency {
     var password: String
     var firstName: String
     var lastName: String
+    var telephoneNumber: String
     var pin: String
     
     typealias ID = Tagged<Self, UUID>

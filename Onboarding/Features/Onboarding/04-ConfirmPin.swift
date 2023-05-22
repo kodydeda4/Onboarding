@@ -28,11 +28,12 @@ struct ConfirmPinView: View {
   
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
-      Form {
-        Section("Confirm Pin - \(viewStore.pin)") {
+      List {
+        Section(viewStore.pin) {
           TextField("Pin", text: viewStore.binding(\.$confirmPin))
         }
       }
+      .listStyle(.grouped)
       .navigationTitle("Confirm Pin")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {

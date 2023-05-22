@@ -27,7 +27,7 @@ struct MainReducer: Reducer {
         return .none
         
       case .alert(.presented(.confirmSignoutButtonTapped)):
-        return .run { _ in 
+        return .run { _ in
           self.userDefaults.set(Optional<Data>(nil), forKey: "user")
         }
         
@@ -67,6 +67,7 @@ struct MainView: View {
             Text("\(viewStore.user.firstName) \(viewStore.user.lastName)")
               .bold()
             Text(viewStore.user.email)
+            Text(viewStore.user.telephoneNumber)
             Text(viewStore.user.id.description)
               .font(.caption)
               .foregroundStyle(.secondary)
@@ -92,7 +93,7 @@ struct MainView: View {
 
 // MARK: - SwiftUI Previews
 
-struct LoggedInView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
   static var previews: some View {
     MainView(store: Store(
       initialState: MainReducer.State(
@@ -102,6 +103,7 @@ struct LoggedInView_Previews: PreviewProvider {
           password: "1234",
           firstName: "Blob",
           lastName: "Jr",
+          telephoneNumber: "123-456-7890",
           pin: "1234"
         )
       ),

@@ -24,11 +24,12 @@ struct NewPinView: View {
   
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
-      Form {
+      List {
         Section {
           TextField("Pin", text: viewStore.binding(\.$pin))
         }
       }
+      .listStyle(.grouped)
       .navigationTitle("New Pin")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {

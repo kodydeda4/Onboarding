@@ -4,7 +4,7 @@ import DependenciesAdditions
 import _AppStorageDependency
 
 struct Onboarding: Reducer {
-  struct State: Codable, Equatable, Hashable {
+  struct State: Equatable {
     var path = StackState<Path.State>()
     var user = UserDefaults.Dependency.User(
       id: .init(),
@@ -12,6 +12,7 @@ struct Onboarding: Reducer {
       password: String(),
       firstName: String(),
       lastName: String(),
+      telephoneNumber: String(),
       pin: String()
     )
   }
@@ -33,7 +34,7 @@ struct Onboarding: Reducer {
           state.path.append(.credentials())
           return .none
           
-        case let .element(id: id, action: .credentials(.nextButtonTapped)):
+        case let .element(id: id, action: .credentials(.didComplete)):
           guard case let .some(.credentials(childState)) = state.path[id: id]
           else { return .none }
           state.user.email = childState.email
@@ -46,6 +47,7 @@ struct Onboarding: Reducer {
           else { return .none }
           state.user.firstName = childState.firstName
           state.user.lastName = childState.lastName
+          state.user.telephoneNumber = childState.telephoneNumber
           state.path.append(.newPin())
           return .none
 
@@ -70,7 +72,7 @@ struct Onboarding: Reducer {
   }
   
   struct Path: Reducer {
-    enum State: Codable, Equatable, Hashable {
+    enum State: Equatable {
       case termsOfService(TermsOfService.State = .init())
       case credentials(Credentials.State = .init())
       case personalInfo(PersonalInfo.State = .init())

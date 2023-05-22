@@ -5,10 +5,10 @@ struct PersonalInfo: Reducer {
   struct State: Codable, Equatable, Hashable {
     @BindingState var firstName = String()
     @BindingState var lastName = String()
-    @BindingState var phoneNumber = String()
+    @BindingState var telephoneNumber = String()
     
     var isNextButtonDisabled: Bool {
-      firstName.isEmpty || lastName.isEmpty || phoneNumber.isEmpty
+      firstName.isEmpty || lastName.isEmpty || telephoneNumber.isEmpty
     }
   }
   
@@ -29,13 +29,27 @@ struct PersonalInfoView: View {
   
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
-      Form {
+      List {
         Section {
-          TextField("First Name", text: viewStore.binding(\.$firstName))
-          TextField("Last Name", text: viewStore.binding(\.$lastName))
-          TextField("Telephone #", text: viewStore.binding(\.$phoneNumber))
+          HStack {
+            Text("First Name").frame(width: 90, alignment: .leading)
+            TextField("Johnny", text: viewStore.binding(\.$firstName))
+              .textContentType(.givenName)
+          }
+          HStack {
+            Text("Last Name").frame(width: 90, alignment: .leading)
+            TextField("Appleseed", text: viewStore.binding(\.$lastName))
+              .textContentType(.familyName)
+          }
+          HStack {
+            Text("Telephone").frame(width: 90, alignment: .leading)
+            TextField("123-456-7890", text: viewStore.binding(\.$telephoneNumber))
+              .keyboardType(.phonePad)
+              .textContentType(.telephoneNumber)
+          }
         }
       }
+      .listStyle(.grouped)
       .navigationTitle("Personal Info")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {

@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct AppReducer: ReducerProtocol {
+struct AppReducer: Reducer {
   enum State: Equatable {
     case onboarding(Onboarding.State)
     case main(MainReducer.State)
@@ -16,7 +16,7 @@ struct AppReducer: ReducerProtocol {
   
   @Dependency(\.userDefaults) var userDefaults
   
-  var body: some ReducerProtocolOf<Self> {
+  var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
         

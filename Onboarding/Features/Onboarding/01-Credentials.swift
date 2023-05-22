@@ -1,14 +1,13 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct PersonalInfo: Reducer {
+struct Credentials: Reducer {
   struct State: Codable, Equatable, Hashable {
-    @BindingState var firstName = String()
-    @BindingState var lastName = String()
-    @BindingState var phoneNumber = String()
+    @BindingState var email = String()
+    @BindingState var password = String()
     
     var isNextButtonDisabled: Bool {
-      firstName.isEmpty || lastName.isEmpty || phoneNumber.isEmpty
+      email.isEmpty || password.isEmpty
     }
   }
   
@@ -22,7 +21,7 @@ struct PersonalInfo: Reducer {
     BindingReducer()
     Reduce { state, action in
       switch action {
-        
+      
       case .binding:
         return .none
         
@@ -33,24 +32,23 @@ struct PersonalInfo: Reducer {
 
 // MARK: - SwiftUI
 
-struct PersonalInfoView: View {
-  let store: StoreOf<PersonalInfo>
+struct CredentialsView: View {
+  let store: StoreOf<Credentials>
   
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       Form {
         Section {
-          TextField("First Name", text: viewStore.binding(\.$firstName))
-          TextField("Last Name", text: viewStore.binding(\.$lastName))
-          TextField("Telephone #", text: viewStore.binding(\.$phoneNumber))
+          TextField("Email", text: viewStore.binding(\.$email))
+          SecureField("Password", text: viewStore.binding(\.$password))
         }
       }
-      .navigationTitle("Personal Info")
+      .navigationTitle("Credentials")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
           NavigationLink(
             "Next",
-            state: AppReducer.Path.State.newPin()
+            state: Onboarding.Path.State.personalInfo()
           )
           .disabled(viewStore.isNextButtonDisabled)
         }
@@ -61,12 +59,12 @@ struct PersonalInfoView: View {
 
 // MARK: - SwiftUI Previews
 
-struct PersonalInfoViewView_Previews: PreviewProvider {
+struct CredentialsView_Previews: PreviewProvider {
   static var previews: some View {
     NavigationStack {
-      PersonalInfoView(store: Store(
-        initialState: PersonalInfo.State(),
-        reducer: PersonalInfo()
+      CredentialsView(store: Store(
+        initialState: Credentials.State(),
+        reducer: Credentials()
       ))
     }
   }

@@ -1,67 +1,33 @@
 import ComposableArchitecture
 import SwiftUI
 
+///
+/// Todo:
+/// 1. Switch between logged in onboarding
+/// 2. Add `Tagged` to AuthClient.User
+/// 3. Add `@FocusState` to forms
+/// 4. Add bonus points
+/// 5. Write tests
+///
+
+
 struct AppReducer: Reducer {
-  struct State: Equatable {
-    var path = StackState<Path.State>()
+  enum State: Codable, Equatable, Hashable {
+    case onboarding(Onboarding.State)
+    case main(MainReducer.State)
   }
   
   enum Action: Equatable {
-    case path(StackAction<Path.State, Path.Action>)
+    case onboarding(Onboarding.Action)
+    case main(MainReducer.Action)
   }
   
   var body: some Reducer<State, Action> {
-    Reduce { state, action in
-      switch action {
-        
-      case .path:
-        return .none
-      }
+    Scope(state: /State.onboarding, action: /Action.onboarding) {
+      Onboarding()
     }
-    .forEach(\.path, action: /Action.path) {
-      Path()
-    }
-  }
-  
-  struct Path: Reducer {
-    enum State: Codable, Equatable, Hashable {
-      case welcome(Welcome.State = .init())
-      case termsOfService(TermsOfService.State = .init())
-      case credentials(Credentials.State = .init())
-      case personalInfo(PersonalInfo.State = .init())
-      case newPin(NewPin.State = .init())
-      case confirmPin(ConfirmPin.State)
-    }
-    
-    enum Action: Equatable {
-      case welcome(Welcome.Action)
-      case termsOfService(TermsOfService.Action)
-      case credentials(Credentials.Action)
-      case personalInfo(PersonalInfo.Action)
-      case newPin(NewPin.Action)
-      case confirmPin(ConfirmPin.Action)
-    }
-    
-    var body: some Reducer<State, Action> {
-      Scope(state: /State.welcome, action: /Action.welcome) {
-        Welcome()
-      }
-      Scope(state: /State.termsOfService, action: /Action.termsOfService) {
-        TermsOfService()
-      }
-      Scope(state: /State.credentials, action: /Action.credentials) {
-        Credentials()
-      }
-      
-      Scope(state: /State.personalInfo, action: /Action.personalInfo) {
-        PersonalInfo()
-      }
-      Scope(state: /State.newPin, action: /Action.newPin) {
-        NewPin()
-      }
-      Scope(state: /State.confirmPin, action: /Action.confirmPin) {
-        ConfirmPin()
-      }
+    Scope(state: /State.main, action: /Action.main) {
+      MainReducer()
     }
   }
 }
@@ -72,55 +38,17 @@ struct AppView: View {
   let store: StoreOf<AppReducer>
   
   var body: some View {
-    NavigationStackStore(
-      self.store.scope(state: \.path, action: AppReducer.Action.path)
-    ) {
-      VStack {
-        Text("No Content")
-          .font(.title)
-          .bold()
-          .foregroundStyle(.secondary)
-      }
-      .navigationTitle("Onboarding")
-    } destination: {
-      switch $0 {
-      case .welcome:
-        CaseLet(
-          state: /AppReducer.Path.State.welcome,
-          action: AppReducer.Path.Action.welcome,
-          then: WelcomeView.init(store:)
-        )
-      case .termsOfService:
-        CaseLet(
-          state: /AppReducer.Path.State.termsOfService,
-          action: AppReducer.Path.Action.termsOfService,
-          then: TermsOfServiceView.init(store:)
-        )
-      case .credentials:
-        CaseLet(
-          state: /AppReducer.Path.State.credentials,
-          action: AppReducer.Path.Action.credentials,
-          then: CredentialsView.init(store:)
-        )
-      case .personalInfo:
-        CaseLet(
-          state: /AppReducer.Path.State.personalInfo,
-          action: AppReducer.Path.Action.personalInfo,
-          then: PersonalInfoView.init(store:)
-        )
-      case .newPin:
-        CaseLet(
-          state: /AppReducer.Path.State.newPin,
-          action: AppReducer.Path.Action.newPin,
-          then: NewPinView.init(store:)
-        )
-      case .confirmPin:
-        CaseLet(
-          state: /AppReducer.Path.State.confirmPin,
-          action: AppReducer.Path.Action.confirmPin,
-          then: ConfirmPinView.init(store:)
-        )
-      }
+    SwitchStore(store) {
+      CaseLet(
+        state: /AppReducer.State.onboarding,
+        action: AppReducer.Action.onboarding,
+        then: OnboardingView.init(store:)
+      )
+      CaseLet(
+        state: /AppReducer.State.main,
+        action: AppReducer.Action.main,
+        then: MainView.init(store:)
+      )
     }
   }
 }
@@ -129,16 +57,9 @@ struct AppView: View {
 
 struct AppView_Previews: PreviewProvider {
   static var previews: some View {
-    AppView(
-      store: Store(
-        initialState: AppReducer.State(
-          path: StackState([
-            .welcome(Welcome.State())
-          ])
-        )
-      ) {
-        AppReducer()
-      }
-    )
+    AppView(store: Store(
+      initialState: AppReducer.State.onboarding(.init()),
+      reducer: AppReducer()
+    ))
   }
 }

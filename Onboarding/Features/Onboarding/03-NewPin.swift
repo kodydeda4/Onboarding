@@ -44,7 +44,7 @@ struct NewPinView: View {
         ToolbarItem(placement: .navigationBarTrailing) {
           NavigationLink(
             "Next",
-            state: AppReducer.Path.State.confirmPin(.init(pin: viewStore.pin))
+            state: Onboarding.Path.State.confirmPin(.init(pin: viewStore.pin))
           )
           .disabled(viewStore.isNextButtonDisabled)
         }

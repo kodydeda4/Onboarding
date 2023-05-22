@@ -35,7 +35,7 @@ Terms of service are the legal agreements between a service provider and a perso
         ToolbarItem(placement: .navigationBarTrailing) {
           NavigationLink(
             "Next",
-            state: AppReducer.Path.State.credentials()
+            state: Onboarding.Path.State.credentials()
           )
           .disabled(viewStore.isNextButtonDisabled)
         }
